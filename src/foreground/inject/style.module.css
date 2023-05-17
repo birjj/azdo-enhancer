@@ -1,0 +1,17 @@
+:root {
+  --color-accent: #2185d0;
+  --color-success: #0e9b2f;
+  --color-success-bg: rgba(14, 155, 47, 0.1);
+  --color-error: #bc0a0a;
+  --color-error-bg: rgba(255, 0, 0, 0.1);
+  --color-warning: rgb(255, 164, 0);
+  --color-warning-bg: rgb(255, 164, 0, 0.25);
+  --color-secondary: #888;
+  --color-secondary-bg: rgba(136, 136, 136, 0.15);
+  --color-hairline: rgba(34, 36, 38, 0.15);
+  --color-hairline-2: rgba(34, 36, 38, 0.3);
+}
+
+:global(.react-root) {
+  display: contents;
+}

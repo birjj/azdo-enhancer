@@ -1,0 +1,62 @@
+name: Release extension
+on:
+  release:
+    types: [published]
+
+jobs:
+  Release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      # setup
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: npm
+      - run: npm ci
+      # bump version number
+      - name: Version bump
+        run: npm version from-git --no-git-tag-version
+        continue-on-error: true
+      - name: Version sync
+        run: npx version-everything manifest.json
+        continue-on-error: true
+      # build extension
+      - run: npm run build
+      # pack zip
+      - run: mkdir hosted
+      - name: Pack
+        uses: cardinalby/webext-buildtools-pack-extension-dir-action@v1
+        with:
+          extensionDir: dist
+          zipFilePath: hosted/extension.zip
+      # convert zip to crx
+      - name: Create .crx
+        uses: cardinalby/webext-buildtools-chrome-crx-action@v2
+        with:
+          zipFilePath: hosted/extension.zip
+          crxFilePath: hosted/extension.crx
+          privateKey: ${{ secrets.CHROME_CRX_PRIVATE_KEY }}
+          updateXmlPath: hosted/update.xml
+          updateXmlCodebaseUrl: https://example.com/extension.crx
+      # publish to the release
+      - name: Release .crx
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: hosted/extension.crx
+          asset_name: extension.crx
+          asset_content_type: application/x-chrome-extension
+      - name: Release .xml
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: hosted/update.xml
+          asset_name: update.xml
+          asset_content_type: application/xml
