@@ -2,6 +2,12 @@
 
 # AZDO Enhancer
 
-A browser extension to fix up Azure DevOps, so it sucks a little less. Planned features:
+A browser extension to fix up Azure DevOps so it sucks a little less.
 
-- [x] Show ANSI errors correctly in pipeline status pages
+Current features:
+
+<details><summary><b> Show ANSI errors correctly in pipeline status pages</b></summary>
+
+![Comparisong of pipeline errors containing ANSI escape codes](./docs/pipeline_errors.png)
+
+</details>
