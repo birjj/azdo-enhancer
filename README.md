@@ -8,6 +8,6 @@ Current features:
 
 <details><summary><b> Show ANSI errors correctly in pipeline status pages</b></summary>
 
-![Comparisong of pipeline errors containing ANSI escape codes](./docs/pipeline_errors.png)
+![Comparison of pipeline errors containing ANSI escape codes](./docs/pipeline_errors.png)
 
 </details>

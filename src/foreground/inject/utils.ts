@@ -1,8 +1,7 @@
 import { createRoot } from "react-dom/client";
 
 export type InjectedHTMLElement = HTMLElement & {
-  ___attached?: InjectionConfig;
-  ___reactRoot?: ReturnType<typeof createRoot>;
+  ___attached?: Set<InjectionConfig>;
 };
 
 export type InjectionConfig = {
@@ -11,15 +10,19 @@ export type InjectionConfig = {
   unmount?: ($elm: InjectedHTMLElement) => void;
 };
 
+export type InjectedReactElement = InjectedHTMLElement & {
+  ___reactRoot?: ReturnType<typeof createRoot>;
+};
+
 /** Utility function to ease the writing of attaching a React root */
 export function reactInjection(
   selector: string,
-  rootGenerator: ($elm: HTMLElement) => InjectedHTMLElement,
+  rootGenerator: ($elm: HTMLElement) => HTMLElement,
   elm: React.ReactNode
 ): InjectionConfig {
   return {
     selector,
-    mount: ($elm) => {
+    mount: ($elm: InjectedReactElement) => {
       const $container = rootGenerator($elm);
       const root = createRoot($container);
       Object.defineProperty($elm, "___reactRoot", {
@@ -28,7 +31,7 @@ export function reactInjection(
       });
       root.render(elm);
     },
-    unmount: ($elm) => {
+    unmount: ($elm: InjectedReactElement) => {
       if (!$elm.___reactRoot) {
         return;
       }
