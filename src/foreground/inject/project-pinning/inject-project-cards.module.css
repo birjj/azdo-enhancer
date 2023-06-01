@@ -1,0 +1,12 @@
+.pin-btn {
+  width: fit-content;
+}
+
+:global(.project-card):not(:focus-within):not(:hover) .pin-btn {
+  display: none;
+}
+
+:global(.navigation-element.navigation-link):not(:focus-within):not(:hover)
+  .pin-btn {
+  display: none;
+}

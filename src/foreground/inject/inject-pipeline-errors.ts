@@ -2,7 +2,7 @@ import console from "../../shared/log";
 import { InjectionConfig } from "./utils";
 import { parse as parseAnsi } from "ansicolor";
 
-const pipelineErrorsInjection: InjectionConfig = {
+const iFixPipelineErrors: InjectionConfig = {
   selector: `.run-details-tab-content .issues-card-content table tr:not([aria-hidden="true"])`,
   mount: ($elm) => {
     const $text = $elm.querySelector(".body-m");
@@ -39,4 +39,4 @@ const pipelineErrorsInjection: InjectionConfig = {
   },
   unmount: ($elm) => {},
 };
-export default pipelineErrorsInjection;
+export default iFixPipelineErrors;
