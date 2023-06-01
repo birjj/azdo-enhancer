@@ -11,3 +11,9 @@ Current features:
 ![Comparison of pipeline errors containing ANSI escape codes](./docs/pipeline_errors.png)
 
 </details>
+
+<details><summary><b> Pin projects to the AZDO header for easy access</b></summary>
+
+![Screenshot of project pinning](./docs/project_pinning.png)
+
+</details>

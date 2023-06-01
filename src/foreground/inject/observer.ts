@@ -65,9 +65,14 @@ export default class InjectionObserver {
   }
 
   onMutations(records: MutationRecord[]) {
+    const start = performance.now();
     records.forEach((record) => {
       record.removedNodes.forEach(this.detach);
       record.addedNodes.forEach(this.attach);
     });
+    const time = performance.now() - start;
+    if (time > 5) {
+      console.warn("Mutations processing took", time, "ms");
+    }
   }
 }

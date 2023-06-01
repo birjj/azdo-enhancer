@@ -18,7 +18,7 @@ export type InjectedReactElement = InjectedHTMLElement & {
 export function reactInjection(
   selector: string,
   rootGenerator: ($elm: HTMLElement) => HTMLElement,
-  elm: React.ReactNode
+  reactNode: ($elm: HTMLElement) => React.ReactNode
 ): InjectionConfig {
   return {
     selector,
@@ -29,7 +29,7 @@ export function reactInjection(
         enumerable: false,
         value: root,
       });
-      root.render(elm);
+      root.render(reactNode($elm));
     },
     unmount: ($elm: InjectedReactElement) => {
       if (!$elm.___reactRoot) {
