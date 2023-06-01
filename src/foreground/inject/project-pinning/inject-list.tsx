@@ -19,7 +19,7 @@ const ProjectPinList = () => {
           }}
         >
           <div
-            className={`vss-Persona flex-noshrink project-persona medium ${style["avatar-wrapper"]}`}
+            className={`vss-Persona flex-noshrink project-persona small ${style["avatar-wrapper"]}`}
           >
             <img
               src={projects[k].avatar}
