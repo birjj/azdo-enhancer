@@ -1,12 +1,10 @@
 .pin-btn {
   width: fit-content;
+  padding: 8px !important;
 }
 
-:global(.project-card):not(:focus-within):not(:hover) .pin-btn {
-  display: none;
-}
-
+:global(.project-card):not(:focus-within):not(:hover) .pin-btn,
 :global(.navigation-element.navigation-link):not(:focus-within):not(:hover)
   .pin-btn {
-  display: none;
+  visibility: hidden;
 }

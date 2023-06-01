@@ -8,7 +8,7 @@ export const ProjectPinBtn = ({ project }: { project: PinnedProject }) => {
   const isPinned = !!projects[project.url];
   return (
     <button
-      className={`bolt-button bolt-link-button enabled bolt-focus-treatment ${
+      className={`bolt-button bolt-link-button icon-only bolt-icon-button enabled bolt-focus-treatment ${
         isPinned ? "primary" : "subtle"
       } ${style["pin-btn"]}`}
       onClick={(e) => {
