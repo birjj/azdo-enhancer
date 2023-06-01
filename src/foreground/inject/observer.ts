@@ -33,7 +33,6 @@ export default class InjectionObserver {
         $elms.push($elm);
       }
       $elms.forEach(($elm) => {
-        console.log("Attaching to", $elm);
         if (!$elm.___attached) {
           Object.defineProperty($elm, "___attached", {
             value: new Set([config]),
@@ -56,7 +55,6 @@ export default class InjectionObserver {
         return;
       }
       if ($elm.contains($mounted)) {
-        console.log("Detaching from", $elm);
         $mounted.___attached.forEach((config) => config.unmount?.($mounted));
         this.#observed.delete($mounted);
         delete $mounted.___attached;
