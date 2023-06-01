@@ -17,3 +17,12 @@ Current features:
 ![Screenshot of project pinning](./docs/project_pinning.png)
 
 </details>
+
+## Installation
+
+Make sure Node and NPM are installed. Then:
+
+1. Download the repo
+2. Run `npm install` and `npm run build`
+3. Navigate to `chrome://extensions` in your browser and enable developer mode (toggle in top-right)
+4. Click "Load unpacked" and choose the "dist" folder
