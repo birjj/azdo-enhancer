@@ -9,7 +9,7 @@ import InjectionObserver from "./observer";
 import iPinnedList from "./project-pinning/inject-list";
 import iPinProjectCard from "./project-pinning/inject-project-cards";
 import iPinSidebar from "./project-pinning/inject-sidebar";
-import iFixPipelineErrors from "./inject-pipeline-errors";
+import iFixPipelineErrors from "./pipeline-errors/inject-pipeline-errors";
 
 // start observing the DOM
 new InjectionObserver([

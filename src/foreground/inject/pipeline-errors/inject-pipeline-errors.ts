@@ -1,6 +1,8 @@
-import console from "../../shared/log";
-import { InjectionConfig } from "./utils";
+import console from "../../../shared/log";
+import { InjectionConfig } from "../utils";
 import { parse as parseAnsi } from "ansicolor";
+
+import style from "./inject-pipeline-errors.module.css";
 
 const iFixPipelineErrors: InjectionConfig = {
   selector: `.run-details-tab-content .issues-card-content table tr:not([aria-hidden="true"])`,
@@ -16,7 +18,7 @@ const iFixPipelineErrors: InjectionConfig = {
     }
 
     const $container = document.createElement("pre");
-    $container.style.margin = "0";
+    $container.classList.add(style.pre);
     $container.replaceChildren(
       ...parsed.map((entry) => {
         const $span = document.createElement("span");
