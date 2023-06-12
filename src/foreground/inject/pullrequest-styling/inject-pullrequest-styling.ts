@@ -40,7 +40,7 @@ function stylizeCommitMessage($elm: Element | null) {
 const iEnhancePullrequestStyling: InjectionConfig = {
   selector: `.repos-pr-list .bolt-list-row`,
   mount: ($elm) => {
-    stylizeCommitMessage($elm.querySelector(".body-l"));
+    // stylizeCommitMessage($elm.querySelector(".body-l"));
 
     const tags = Array.from(
       $elm.querySelectorAll(".bolt-pill .bolt-pill-content")
