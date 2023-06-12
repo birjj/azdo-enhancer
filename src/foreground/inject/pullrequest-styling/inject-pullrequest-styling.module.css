@@ -1,0 +1,8 @@
+.cc--type,
+.cc--scope {
+  color: var(--color-secondary);
+}
+
+.tagged--draft {
+  opacity: 0.5;
+}

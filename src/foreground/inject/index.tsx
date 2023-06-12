@@ -10,6 +10,7 @@ import iPinnedList from "./project-pinning/inject-list";
 import iPinProjectCard from "./project-pinning/inject-project-cards";
 import iPinSidebar from "./project-pinning/inject-sidebar";
 import iFixPipelineErrors from "./pipeline-errors/inject-pipeline-errors";
+import iEnhancePullrequestStyling from "./pullrequest-styling/inject-pullrequest-styling";
 
 // start observing the DOM
 new InjectionObserver([
@@ -17,4 +18,5 @@ new InjectionObserver([
   iPinnedList,
   iPinProjectCard,
   iPinSidebar,
+  iEnhancePullrequestStyling,
 ]);
