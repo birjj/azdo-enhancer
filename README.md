@@ -18,6 +18,12 @@ Current features:
 
 </details>
 
+<details><summary><b> Scroll-to-bottom button for long logs</b></summary>
+
+![Screenshot of scroll-to-bottom button](./docs/scroll_to_bottom.png)
+
+</details>
+
 ## Installation
 
 Make sure Node and NPM are installed. Then:
