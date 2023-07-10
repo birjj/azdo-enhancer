@@ -1,0 +1,13 @@
+.button {
+  position: absolute;
+  right: 24px;
+  bottom: 16px;
+  font-family: "Segoe UI", "-apple-system", BlinkMacSystemFont, Roboto,
+    "Helvetica Neue", Helvetica, Ubuntu, Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+.icon {
+  display: inline-block;
+  margin-right: 8px;
+}
