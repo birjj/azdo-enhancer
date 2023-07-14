@@ -10,50 +10,79 @@ const observeSize = ($elm: Element, callback: ResizeObserverCallback) => {
 };
 
 const ScrollToBottomBtn = () => {
-  const buttonRef = useRef<HTMLButtonElement>(null);
-  const [isScrollable, setIsScrollable] = useState(false);
+  const btnWrapperRef = useRef<HTMLDivElement>(null);
+  const [isAtBottom, setIsAtBottom] = useState(true);
+  const [isAtTop, setIsAtTop] = useState(true);
 
+  // add listeners so we can detect whether the scroll position
   useEffect(() => {
-    const $parent = buttonRef.current?.parentElement?.parentElement;
-    const $logs = $parent?.querySelector(".reader-main-content");
-    if (!$parent || !$logs) {
+    const $parent = btnWrapperRef.current?.parentElement?.parentElement;
+    const $content = $parent?.querySelector(".reader-main-content");
+    if (!$parent || !$content) {
       return;
     }
 
-    const updateState = () => {
+    const updateScrollState = () => {
       const toBottom =
         $parent.scrollHeight - $parent.clientHeight - $parent.scrollTop;
-      setIsScrollable(toBottom > 0);
+      setIsAtBottom(toBottom <= 24);
+      setIsAtTop($parent.scrollTop <= 0);
     };
-    const unobserveSize = observeSize($logs, updateState);
-    $parent.addEventListener("scroll", updateState);
+
+    const unobserveSize = observeSize($content, updateScrollState);
+    $parent.addEventListener("scroll", updateScrollState);
+    updateScrollState();
     return () => {
       unobserveSize();
-      $parent.removeEventListener("scroll", updateState);
+      $parent.removeEventListener("scroll", updateScrollState);
     };
-  }, [buttonRef.current]);
+  }, [btnWrapperRef.current]);
 
-  const doScroll = useCallback(() => {
-    const $parent = buttonRef.current?.parentElement?.parentElement;
+  // create action callbacks
+  const scrollToBottom = useCallback(() => {
+    const $parent = btnWrapperRef.current?.parentElement?.parentElement;
     if (!$parent) {
       return;
     }
-
     $parent.scrollTop = $parent.scrollHeight - $parent.clientHeight;
-  }, [buttonRef.current]);
+  }, [btnWrapperRef.current]);
+  const scrollToTop = useCallback(() => {
+    const $parent = btnWrapperRef.current?.parentElement?.parentElement;
+    if (!$parent) {
+      return;
+    }
+    $parent.scrollTop = 0;
+  }, [btnWrapperRef.current]);
 
   return (
-    <button
+    <div
       className={`${
         style.button
-      } bolt-button primary bolt-focus-treatment enabled ${
-        isScrollable ? "" : "invisible"
+      } bolt-split-button flex-stretch inline-flex-row ${
+        isAtBottom && isAtTop ? "invisible" : ""
       }`}
-      ref={buttonRef}
-      onClick={doScroll}
+      ref={btnWrapperRef}
     >
-      Scroll to bottom
-    </button>
+      <button
+        className={`${
+          style["button-left"]
+        } bolt-split-button-main bolt-split-button-option body-s bolt-button bolt-icon-button enabled icon-only bolt-focus-treatment ${
+          isAtBottom ? "disabled" : ""
+        }`}
+        onClick={scrollToBottom}
+      >
+        <span className="left-icon flex-noshrink fabric-icon ms-Icon--ChevronDownMed small" />
+      </button>
+      <div className="bolt-split-button-divider flex-noshrink" />
+      <button
+        className={`bolt-split-button-option body-s bolt-button bolt-icon-button enabled icon-only bolt-focus-treatment ${
+          isAtTop ? "disabled" : ""
+        }`}
+        onClick={scrollToTop}
+      >
+        <span className="left-icon flex-noshrink fabric-icon ms-Icon--ChevronUpMed small" />
+      </button>
+    </div>
   );
 };
 

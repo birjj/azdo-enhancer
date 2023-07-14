@@ -7,7 +7,7 @@
     "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
-.icon {
-  display: inline-block;
-  margin-right: 8px;
+:global(.bolt-split-button .bolt-split-button-option).button-left {
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px;
 }
