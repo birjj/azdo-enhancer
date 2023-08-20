@@ -103,12 +103,14 @@ const ScrollToBottomBtn = () => {
 const iLogsScrollToBottom = reactInjection(
   `.log-reader`,
   ($elm) => {
-    const $prevSibling = $elm.parentElement?.querySelector(
-      ".bolt-header-commandbar"
+    const $parent = $elm.parentElement?.querySelector(
+      ".log-header > .flex-row"
     );
+    console.log("Inserting into", $parent, $elm.parentElement);
     const $container = document.createElement("div");
     $container.classList.add("react-root");
-    $prevSibling?.insertAdjacentElement("afterend", $container);
+    $container.classList.add(style.root);
+    $parent?.insertBefore($container, $parent.firstChild);
     return $container;
   },
   () => <ScrollToBottomBtn />

@@ -1,12 +1,14 @@
+.root + :global(.bolt-header-title-area) {
+  justify-content: center;
+}
+
 .button {
   font-family: "Segoe UI", "-apple-system", BlinkMacSystemFont, Roboto,
     "Helvetica Neue", Helvetica, Ubuntu, Arial, sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol";
-}
-
-.button {
   margin-top: 2px;
   margin-bottom: 2px;
+  margin-right: 0.5rem;
 }
 
 :global(.bolt-split-button .bolt-split-button-option).button-left {
