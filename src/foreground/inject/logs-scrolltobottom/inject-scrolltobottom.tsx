@@ -16,8 +16,12 @@ const ScrollToBottomBtn = () => {
 
   // add listeners so we can detect whether the scroll position
   useEffect(() => {
-    const $parent = btnWrapperRef.current?.parentElement?.parentElement;
-    const $content = $parent?.querySelector(".reader-main-content");
+    const $parent = btnWrapperRef.current
+      ?.closest(".logs-view")
+      ?.querySelector(".log-reader");
+    const $content = btnWrapperRef.current
+      ?.closest(".logs-view")
+      ?.querySelector(".reader-main-content");
     if (!$parent || !$content) {
       return;
     }
@@ -40,14 +44,18 @@ const ScrollToBottomBtn = () => {
 
   // create action callbacks
   const scrollToBottom = useCallback(() => {
-    const $parent = btnWrapperRef.current?.parentElement?.parentElement;
+    const $parent = btnWrapperRef.current
+      ?.closest(".logs-view")
+      ?.querySelector(".log-reader");
     if (!$parent) {
       return;
     }
     $parent.scrollTop = $parent.scrollHeight - $parent.clientHeight;
   }, [btnWrapperRef.current]);
   const scrollToTop = useCallback(() => {
-    const $parent = btnWrapperRef.current?.parentElement?.parentElement;
+    const $parent = btnWrapperRef.current
+      ?.closest(".logs-view")
+      ?.querySelector(".log-reader");
     if (!$parent) {
       return;
     }
@@ -55,33 +63,39 @@ const ScrollToBottomBtn = () => {
   }, [btnWrapperRef.current]);
 
   return (
-    <div
-      className={`${
-        style.button
-      } bolt-split-button flex-stretch inline-flex-row ${
-        isAtBottom && isAtTop ? "invisible" : ""
-      }`}
-      ref={btnWrapperRef}
-    >
-      <button
+    <div className="reader-actions flex-row bolt-button-group">
+      <div
         className={`${
-          style["button-left"]
-        } bolt-split-button-main bolt-split-button-option body-s bolt-button bolt-icon-button enabled icon-only bolt-focus-treatment ${
-          isAtBottom ? "disabled" : ""
+          style.button
+        } reader-actions bolt-split-button flex-stretch inline-flex-row ${
+          isAtBottom && isAtTop ? "hidden" : ""
         }`}
-        onClick={scrollToBottom}
+        ref={btnWrapperRef}
       >
-        <span className="left-icon flex-noshrink fabric-icon ms-Icon--ChevronDownMed small" />
-      </button>
-      <div className="bolt-split-button-divider flex-noshrink" />
-      <button
-        className={`bolt-split-button-option body-s bolt-button bolt-icon-button enabled icon-only bolt-focus-treatment ${
-          isAtTop ? "disabled" : ""
-        }`}
-        onClick={scrollToTop}
-      >
-        <span className="left-icon flex-noshrink fabric-icon ms-Icon--ChevronUpMed small" />
-      </button>
+        <button
+          className={`${
+            style["button-left"]
+          } bolt-split-button-main bolt-split-button-option body-s bolt-button bolt-icon-button enabled icon-only bolt-focus-treatment ${
+            isAtBottom ? "disabled" : ""
+          }`}
+          title="Scroll to bottom"
+          aria-haspopup="true"
+          aria-label="Scroll to bottom"
+          onClick={scrollToBottom}
+        >
+          <span className="left-icon flex-noshrink fabric-icon ms-Icon--DoubleChevronDown" />
+        </button>
+        <div className="bolt-split-button-divider flex-noshrink" />
+        <button
+          className={`bolt-split-button-option body-s bolt-button bolt-icon-button enabled icon-only bolt-focus-treatment ${
+            isAtTop ? "disabled" : ""
+          }`}
+          title="Scroll to top"
+          onClick={scrollToTop}
+        >
+          <span className="left-icon flex-noshrink fabric-icon ms-Icon--DoubleChevronUp" />
+        </button>
+      </div>
     </div>
   );
 };
@@ -89,9 +103,12 @@ const ScrollToBottomBtn = () => {
 const iLogsScrollToBottom = reactInjection(
   `.log-reader`,
   ($elm) => {
+    const $prevSibling = $elm.parentElement?.querySelector(
+      ".bolt-header-commandbar"
+    );
     const $container = document.createElement("div");
     $container.classList.add("react-root");
-    $elm.appendChild($container);
+    $prevSibling?.insertAdjacentElement("afterend", $container);
     return $container;
   },
   () => <ScrollToBottomBtn />
