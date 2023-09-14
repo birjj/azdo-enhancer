@@ -1,5 +1,5 @@
 import console from "../../../shared/log";
-import { InjectionConfig } from "../utils";
+import { type InjectedHTMLElement, type InjectionConfig } from "../utils";
 
 import style from "./inject-pullrequest-styling.module.css";
 
@@ -37,22 +37,39 @@ function stylizeCommitMessage($elm: Element | null) {
   }
 }
 
+const applyPullrequestStyling = ($elm: HTMLElement) => {
+  const tags = Array.from(
+    $elm.querySelectorAll(".bolt-pill .bolt-pill-content")
+  ).map(($t) => $t.textContent?.trim());
+  tags.forEach((tag) => {
+    const cls = style[`tagged--${tag?.toLowerCase()}`];
+    if (cls) {
+      $elm.classList.toggle(cls, true);
+    }
+  });
+};
+
+type ObservedHTMLElement = InjectedHTMLElement & {
+  ___pullRequestObserver?: MutationObserver;
+};
 const iEnhancePullrequestStyling: InjectionConfig = {
   selector: `.repos-pr-list .bolt-list-row`,
   mount: ($elm) => {
-    // stylizeCommitMessage($elm.querySelector(".body-l"));
+    applyPullrequestStyling($elm);
 
-    const tags = Array.from(
-      $elm.querySelectorAll(".bolt-pill .bolt-pill-content")
-    ).map(($t) => $t.textContent?.trim());
-    console.log($elm, tags);
-    tags.forEach((tag) => {
-      const cls = style[`tagged--${tag?.toLowerCase()}`];
-      if (cls) {
-        $elm.classList.add(cls);
-      }
+    const observer = new MutationObserver(() => {
+      applyPullrequestStyling($elm);
     });
+    observer.observe($elm, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+    ($elm as ObservedHTMLElement).___pullRequestObserver = observer;
   },
-  unmount: ($elm) => {},
+  unmount: ($elm: ObservedHTMLElement) => {
+    if ($elm.___pullRequestObserver) {
+      $elm.___pullRequestObserver.disconnect();
+    }
+  },
 };
 export default iEnhancePullrequestStyling;
