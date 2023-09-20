@@ -24,6 +24,12 @@ Current features:
 
 </details>
 
+<details><summary><b> Format relative timestamps as absolute</b></summary>
+
+![Screenshot of absolute timestamps](./docs/time_display.png)
+
+</details>
+
 ## Installation
 
 Make sure Node and NPM are installed. Then:
@@ -43,6 +49,7 @@ Make sure Node and NPM are installed. Then:
 1. Manually remove the line containing `"use_dynamic_url": true` from `dist/manifest.json`
 1. Navigate to `about:debugging#/runtime/this-firefox` (or go to `about:addons`, click the settings icon, and choose "Debug Add-ons")
 1. Click "Load Temporary Add-on..." and choose the `dist/manifest.json` file.
-1. Click the add-ons symbol in the taskbar, select the cog wheel next to AZDO Enhancer, and choose "Extension Can Read and Change Data: Always Allow on dev.azure.com"
+1. Open Azure DevOps.
+1. Click the extensions symbol in the taskbar (the puzzle piece), select the cog wheel next to AZDO Enhancer, and choose "Extension Can Read and Change Data: Always Allow on dev.azure.com"
 
 </td>
