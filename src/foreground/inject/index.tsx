@@ -12,6 +12,7 @@ import iPinSidebar from "./project-pinning/inject-sidebar";
 import iFixPipelineErrors from "./pipeline-errors/inject-pipeline-errors";
 import iEnhancePullrequestStyling from "./pullrequest-styling/inject-pullrequest-styling";
 import iLogsScrollToBottom from "./logs-scrolltobottom/inject-scrolltobottom";
+import iTimeFormat from "./time-format/inject-time-format";
 
 // start observing the DOM
 new InjectionObserver([
@@ -21,4 +22,5 @@ new InjectionObserver([
   iPinSidebar,
   iEnhancePullrequestStyling,
   iLogsScrollToBottom,
+  iTimeFormat,
 ]);

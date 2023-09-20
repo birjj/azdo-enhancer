@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "lib": ["es6", "dom"],
+    "lib": ["ES2017", "dom"],
     "target": "ESNext",
     "sourceMap": true,
     "allowJs": true,
