@@ -2,10 +2,18 @@ import { InjectionConfig, reactInjection } from "../utils";
 import console from "../../../shared/log";
 
 type AugmentedHTMLTimeElement = HTMLTimeElement & {
-  ___timeAugmented?: boolean;
+  ___timeAugmented?: string | null;
+  ___timeObserver?: MutationObserver;
 };
 const augmentTimeText = ($elm: AugmentedHTMLTimeElement) => {
-  if ($elm.___timeAugmented) {
+  if ($elm.nodeName !== "TIME" || $elm.childNodes[0]?.nodeName !== "#text") {
+    console.warn("Not augmenting <time>", $elm);
+    return;
+  }
+  if (
+    "___timeAugmented" in $elm &&
+    $elm.textContent === $elm.___timeAugmented
+  ) {
     return;
   }
   const date = new Date($elm.dateTime);
@@ -24,22 +32,26 @@ const augmentTimeText = ($elm: AugmentedHTMLTimeElement) => {
 
   $elm.childNodes[0].textContent = `${strHours}:${strMinutes}`;
 
-  $elm.___timeAugmented = true;
+  $elm.___timeAugmented = $elm.textContent;
+  if (!$elm.___timeObserver) {
+    $elm.___timeObserver = new MutationObserver(() => augmentTimeText($elm));
+    $elm.___timeObserver.observe($elm, {
+      childList: true,
+      characterData: true,
+    });
+  }
 };
 
 const iTimeFormat: InjectionConfig = {
   selector: `time[datetime]`,
   mount: ($elm) => {
-    if ($elm.nodeName !== "TIME" || $elm.childNodes[0]?.nodeName !== "#text") {
-      console.warn("Not augmenting <time>", $elm);
-      return;
-    }
-
     augmentTimeText($elm as HTMLTimeElement);
   },
   unmount: ($elm) => {
-    if ("___timeAugmented" in $elm) {
-      delete $elm.___timeAugmented;
+    if ("___timeObserver" in $elm) {
+      ($elm as AugmentedHTMLTimeElement).___timeObserver?.disconnect();
+      delete ($elm as AugmentedHTMLTimeElement).___timeObserver;
+      delete ($elm as AugmentedHTMLTimeElement).___timeAugmented;
     }
   },
 };
