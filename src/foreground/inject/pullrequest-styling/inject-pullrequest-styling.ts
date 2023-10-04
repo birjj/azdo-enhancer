@@ -37,16 +37,28 @@ function stylizeCommitMessage($elm: Element | null) {
   }
 }
 
-const applyPullrequestStyling = ($elm: HTMLElement) => {
-  const tags = Array.from(
+const getPullrequestClasses = ($elm: HTMLElement): string[] => {
+  const tagClasses = Array.from(
     $elm.querySelectorAll(".bolt-pill .bolt-pill-content")
-  ).map(($t) => $t.textContent?.trim());
-  tags.forEach((tag) => {
-    const cls = style[`tagged--${tag?.toLowerCase()}`];
-    if (cls) {
-      $elm.classList.toggle(cls, true);
-    }
-  });
+  )
+    .map(($t) => $t.textContent?.trim())
+    .map((tag) => {
+      const cls = style[`tagged--${tag?.toLowerCase()}`];
+      if (cls) {
+        return cls;
+      }
+      return "";
+    })
+    .filter((v) => v);
+
+  const reviewClasses = [
+    $elm.querySelector(".ms-Icon--AwayStatus") ? style[`status--awaiting`] : "",
+  ].filter((v) => v);
+  return [...tagClasses, ...reviewClasses];
+};
+
+const applyPullrequestStyling = ($elm: HTMLElement) => {
+  getPullrequestClasses($elm).forEach((c) => $elm.classList.toggle(c, true));
 };
 
 type ObservedHTMLElement = InjectedHTMLElement & {

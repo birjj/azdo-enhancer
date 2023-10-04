@@ -6,3 +6,11 @@
 .tagged--draft {
   opacity: 0.5;
 }
+
+.status--awaiting {
+  box-shadow: inset 32px 0 32px -32px var(--color-warning-bg);
+}
+.status--awaiting :global(.bolt-list-cell:first-child) {
+  border-left: 2px solid;
+  border-left-color: var(--color-warning);
+}
