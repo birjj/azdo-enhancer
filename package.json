@@ -12,6 +12,8 @@
     "@headlessui/react": "^1.6.4",
     "@popperjs/core": "^2.11.5",
     "ansicolor": "^1.1.100",
+    "linkify-element": "^4.1.3",
+    "linkifyjs": "^4.1.3",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "swr": "^1.3.0",
