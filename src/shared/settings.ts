@@ -13,7 +13,7 @@ export const SETTINGS = {
   "project-pinning": {
     title: "Shortcuts",
     description:
-      "Adds teh ability to pin often-used sections to the navigation bar",
+      "Adds the ability to pin often-used sections to the navigation bar",
     default: true as boolean,
   },
   "pullrequest-styling": {
