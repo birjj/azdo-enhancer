@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { reactInjection } from "../utils";
 
 import style from "./inject-scrolltobottom.module.css";
+import { getSettingValue } from "../../../shared/settings";
 
 const observeSize = ($elm: Element, callback: ResizeObserverCallback) => {
   const observer = new ResizeObserver(callback);
@@ -113,6 +114,10 @@ const iLogsScrollToBottom = reactInjection(
     $parent?.insertBefore($container, $parent.firstChild);
     return $container;
   },
-  () => <ScrollToBottomBtn />
+  () => <ScrollToBottomBtn />,
+  async () => {
+    const setting = await getSettingValue("logs-scrolltobottom");
+    return setting;
+  }
 );
 export default iLogsScrollToBottom;

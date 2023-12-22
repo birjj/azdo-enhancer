@@ -1,4 +1,5 @@
 import console from "../../../shared/log";
+import { getSettingValue } from "../../../shared/settings";
 import { type InjectedHTMLElement, type InjectionConfig } from "../utils";
 
 import style from "./inject-pullrequest-styling.module.css";
@@ -82,6 +83,10 @@ const iEnhancePullrequestStyling: InjectionConfig = {
     if ($elm.___pullRequestObserver) {
       $elm.___pullRequestObserver.disconnect();
     }
+  },
+  gate: async () => {
+    const setting = await getSettingValue("pullrequest-styling");
+    return setting;
   },
 };
 export default iEnhancePullrequestStyling;

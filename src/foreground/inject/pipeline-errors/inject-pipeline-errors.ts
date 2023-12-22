@@ -4,6 +4,7 @@ import { parse as parseAnsi } from "ansicolor";
 import linkifyElement from "linkify-element";
 
 import style from "./inject-pipeline-errors.module.css";
+import { getSettingValue } from "../../../shared/settings";
 
 function applyAnsiToElm($target: Node) {
   const text = $target.textContent || "";
@@ -51,5 +52,9 @@ const iFixPipelineErrors: InjectionConfig = {
     });
   },
   unmount: ($elm) => {},
+  gate: async () => {
+    const setting = await getSettingValue("pipeline-errors");
+    return setting;
+  },
 };
 export default iFixPipelineErrors;

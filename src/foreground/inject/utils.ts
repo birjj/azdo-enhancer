@@ -1,4 +1,5 @@
 import { createRoot } from "react-dom/client";
+import { SETTINGS } from "../../shared/settings";
 
 export type InjectedHTMLElement = HTMLElement & {
   ___attached?: Set<InjectionConfig>;
@@ -8,6 +9,7 @@ export type InjectionConfig = {
   selector: string;
   mount: ($elm: InjectedHTMLElement) => void;
   unmount?: ($elm: InjectedHTMLElement) => void;
+  gate?: () => Promise<boolean> | boolean;
 };
 
 export type InjectedReactElement = InjectedHTMLElement & {
@@ -18,7 +20,8 @@ export type InjectedReactElement = InjectedHTMLElement & {
 export function reactInjection(
   selector: string,
   rootGenerator: ($elm: HTMLElement) => HTMLElement,
-  reactNode: ($elm: HTMLElement) => React.ReactNode
+  reactNode: ($elm: HTMLElement) => React.ReactNode,
+  gate?: () => Promise<boolean> | boolean
 ): InjectionConfig {
   return {
     selector,
@@ -37,5 +40,6 @@ export function reactInjection(
       }
       $elm.___reactRoot.unmount();
     },
+    gate,
   };
 }

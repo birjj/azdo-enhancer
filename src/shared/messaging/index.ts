@@ -10,12 +10,21 @@ export {
 
 /** The types of messages we can send back and forth between background and content scripts */
 export type Messages = {
-  foo: { request: never; response: never };
+  setSetting: {
+    request: {
+      name: string;
+      value: any;
+    };
+    response: {};
+  };
 };
 
 /** The types of messages we can broadcast to all content scripts from the background script */
 export type BroadcastMessages = {
-  bar: never;
+  settingUpdated: {
+    name: string;
+    value: any;
+  };
 };
 
 export type RequestMessage<K extends keyof Messages> = {

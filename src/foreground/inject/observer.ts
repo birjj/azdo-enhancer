@@ -24,7 +24,14 @@ export default class InjectionObserver {
   }
 
   attach($elm: HTMLElement) {
-    this.#injections.forEach((config) => {
+    this.#injections.forEach(async (config) => {
+      if (config.gate) {
+        const shouldContinue = await config.gate();
+        if (!shouldContinue) {
+          return;
+        }
+      }
+
       const { selector, mount } = config;
       const $elms: InjectedHTMLElement[] = Array.from(
         $elm.querySelectorAll ? $elm.querySelectorAll(selector) : []

@@ -3,6 +3,7 @@ import usePinnedProjectsStore, { PinnedProject } from "./store";
 import { reactInjection } from "../utils";
 import console from "../../../shared/log";
 import { ProjectPinBtn } from "./inject-project-cards";
+import { getSettingValue } from "../../../shared/settings";
 
 const iPinSidebar = reactInjection(
   `.navigation-section .navigation-element.navigation-link`,
@@ -33,6 +34,10 @@ const iPinSidebar = reactInjection(
       return null;
     }
     return <ProjectPinBtn project={{ name, avatar, url, secondaryAvatar }} />;
+  },
+  async () => {
+    const setting = await getSettingValue("project-pinning");
+    return setting;
   }
 );
 export default iPinSidebar;

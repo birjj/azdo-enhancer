@@ -1,0 +1,23 @@
+.row {
+  display: block;
+  padding-block: 0.5rem;
+  padding-inline: 0.75rem 1rem;
+}
+.row:hover {
+  background: rgb(var(--c-background-1));
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  font-weight: 600;
+}
+.description {
+  color: rgb(var(--c-foreground-0), 0.8);
+  font-size: 0.875em;
+  margin-block: 0.35rem 0;
+}

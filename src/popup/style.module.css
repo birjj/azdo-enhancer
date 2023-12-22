@@ -1,0 +1,49 @@
+:root {
+  --c-background-0: 255, 255, 255;
+  --c-background-1: 248, 248, 248;
+  --c-foreground-0: 0, 0, 0;
+  --c-accent-0: 0, 120, 212;
+  --c-accent-1: 16, 110, 190;
+  --shadow-medium: 0 3.2px 7.2px 0 var(--shadow-color, rgba(0, 0, 0, 0.132)),
+    0.6px 1.8px 0 var(--shadow-color-1, rgba(0, 0, 0, 0.108));
+
+  --font-sans: "Segoe UI VSS (Regular)", "Segoe UI", "-apple-system",
+    BlinkMacSystemFont, Roboto, "Helvetica Neue", Helvetica, Ubuntu, Arial,
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+body {
+  margin: 0;
+  min-width: 28rem;
+  display: flex;
+  flex-direction: column;
+  padding-block: 0.75rem 1rem;
+  padding-inline: 1rem;
+  color: rgb(var(--c-foreground-0));
+  background: rgb(var(--c-background-1));
+  font-family: var(--font-sans);
+}
+
+h1 {
+  margin: 0 0 0.5rem 0;
+  padding: 0 0.25rem;
+  font-size: 1.3125rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.card {
+  background: rgb(var(--c-background-0));
+  box-shadow: var(--shadow-medium);
+  border-radius: 4px;
+  padding-block: 0.5rem;
+}
+
+.list {
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  grid-auto-flow: column;
+}

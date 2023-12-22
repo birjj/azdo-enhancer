@@ -1,4 +1,5 @@
 {
+  "$schema": "https://json.schemastore.org/chrome-manifest",
   "name": "AZDO Enhancer",
   "version": "0.0.1",
   "manifest_version": 3,
@@ -11,14 +12,22 @@
     "128": "assets/ext/icon128.png"
   },
   "permissions": ["storage", "alarms", "unlimitedStorage", "scripting"],
-  "host_permissions": [
-    "https://dev.azure.com/*"
-  ],
+  "host_permissions": ["https://dev.azure.com/*"],
   "content_scripts": [
     {
       "matches": ["https://dev.azure.com/*"],
       "js": ["src/foreground/inject/index.tsx"],
       "run_at": "document_start"
     }
-  ]
+  ],
+  "action": {
+    "default_icon": {
+      "16": "assets/ext/icon16.png",
+      "19": "assets/ext/icon19.png",
+      "48": "assets/ext/icon48.png",
+      "128": "assets/ext/icon128.png"
+    },
+    "default_title": "Azure DevOps Enhancer",
+    "default_popup": "src/popup/index.html"
+  }
 }

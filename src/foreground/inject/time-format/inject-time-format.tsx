@@ -1,5 +1,6 @@
 import { InjectionConfig, reactInjection } from "../utils";
 import console from "../../../shared/log";
+import { getSettingValue } from "../../../shared/settings";
 
 type AugmentedHTMLTimeElement = HTMLTimeElement & {
   ___timeAugmented?: string | null;
@@ -53,6 +54,10 @@ const iTimeFormat: InjectionConfig = {
       delete ($elm as AugmentedHTMLTimeElement).___timeObserver;
       delete ($elm as AugmentedHTMLTimeElement).___timeAugmented;
     }
+  },
+  gate: async () => {
+    const setting = await getSettingValue("time-format");
+    return setting;
   },
 };
 export default iTimeFormat;

@@ -2,6 +2,7 @@ import React from "react";
 import usePinnedProjectsStore from "./store";
 import { reactInjection } from "../utils";
 import style from "./inject-list.module.css";
+import { getSettingValue } from "../../../shared/settings";
 
 const ProjectPinList = () => {
   const projects = usePinnedProjectsStore((state) => state.projects);
@@ -48,6 +49,10 @@ const iPinnedList = reactInjection(
     $elm.insertBefore($container, $nextChild);
     return $container;
   },
-  () => <ProjectPinList />
+  () => <ProjectPinList />,
+  async () => {
+    const setting = await getSettingValue("project-pinning");
+    return setting;
+  }
 );
 export default iPinnedList;
