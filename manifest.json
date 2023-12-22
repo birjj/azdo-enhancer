@@ -20,14 +20,5 @@
       "run_at": "document_start"
     }
   ],
-  "action": {
-    "default_icon": {
-      "16": "assets/ext/icon16.png",
-      "19": "assets/ext/icon19.png",
-      "48": "assets/ext/icon48.png",
-      "128": "assets/ext/icon128.png"
-    },
-    "default_title": "Azure DevOps Enhancer",
-    "default_popup": "src/popup/index.html"
-  }
+  "options_page": "src/settings/index.html"
 }

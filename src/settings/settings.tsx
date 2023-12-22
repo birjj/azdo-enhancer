@@ -8,7 +8,7 @@ import { SETTINGS } from "../shared/settings";
 
 const PopupApp = () => {
   return (
-    <>
+    <div className={style.wrapper}>
       <h1>
         <LogoIcon size="1em" style={{ marginInlineEnd: "0.5ch" }} /> Settings
       </h1>
@@ -19,7 +19,7 @@ const PopupApp = () => {
           })}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

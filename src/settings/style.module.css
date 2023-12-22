@@ -12,16 +12,28 @@
     sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   min-width: 28rem;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   padding-block: 0.75rem 1rem;
   padding-inline: 1rem;
   color: rgb(var(--c-foreground-0));
   background: rgb(var(--c-background-1));
   font-family: var(--font-sans);
+}
+
+.wrapper {
+  width: fit-content;
+  margin: 0 auto;
 }
 
 h1 {
@@ -44,6 +56,7 @@ h1 {
 
 .list {
   display: grid;
-  grid-template-rows: repeat(3, 1fr);
-  grid-auto-flow: column;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-flow: row;
+  max-width: 48rem;
 }
