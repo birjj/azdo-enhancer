@@ -1,6 +1,17 @@
 export const escapeRegexString = (str: string) =>
   str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
+export const randomString = (
+  length: number,
+  alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+) => {
+  let outp = "";
+  while (outp.length < length) {
+    outp += alphabet[Math.floor(Math.random() * alphabet.length)];
+  }
+  return outp;
+};
+
 type FullEvents<Events extends { [k: string]: (...args: any) => any }> = Omit<
   Events,
   "*"

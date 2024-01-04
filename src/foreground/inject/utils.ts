@@ -1,5 +1,6 @@
 import { createRoot } from "react-dom/client";
 import { SETTINGS } from "../../shared/settings";
+import { randomString } from "../../shared/utils";
 
 export type InjectedHTMLElement = HTMLElement & {
   ___attached?: Set<InjectionConfig>;
@@ -23,12 +24,13 @@ export function reactInjection(
   reactNode: ($elm: HTMLElement) => React.ReactNode,
   gate?: () => Promise<boolean> | boolean
 ): InjectionConfig {
+  const id = randomString(8);
   return {
     selector,
     mount: ($elm: InjectedReactElement) => {
       const $container = rootGenerator($elm);
       const root = createRoot($container);
-      Object.defineProperty($elm, "___reactRoot", {
+      Object.defineProperty($elm, `___reactRoot-${id}`, {
         enumerable: false,
         value: root,
       });
