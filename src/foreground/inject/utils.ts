@@ -14,7 +14,7 @@ export type InjectionConfig = {
 };
 
 export type InjectedReactElement = InjectedHTMLElement & {
-  ___reactRoot?: ReturnType<typeof createRoot>;
+  [k: `___reactRoot-${string}`]: ReturnType<typeof createRoot> | undefined;
 };
 
 /** Utility function to ease the writing of attaching a React root */
@@ -24,23 +24,22 @@ export function reactInjection(
   reactNode: ($elm: HTMLElement) => React.ReactNode,
   gate?: () => Promise<boolean> | boolean
 ): InjectionConfig {
-  const id = randomString(8);
+  const cacheKey = `___reactRoot-${randomString(
+    8
+  )}` as `___reactRoot-${string}`;
   return {
     selector,
     mount: ($elm: InjectedReactElement) => {
       const $container = rootGenerator($elm);
       const root = createRoot($container);
-      Object.defineProperty($elm, `___reactRoot-${id}`, {
+      Object.defineProperty($elm, cacheKey, {
         enumerable: false,
         value: root,
       });
       root.render(reactNode($elm));
     },
     unmount: ($elm: InjectedReactElement) => {
-      if (!$elm.___reactRoot) {
-        return;
-      }
-      $elm.___reactRoot.unmount();
+      $elm[cacheKey]?.unmount();
     },
     gate,
   };
