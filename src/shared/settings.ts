@@ -26,6 +26,11 @@ export const SETTINGS = {
     description: "Converts relative timestamps to absolute",
     default: true as boolean,
   },
+  "linkify-azure-ids": {
+    title: "Linkify Azure IDs",
+    description: "Add links to Azure resource IDs in pipeline logs",
+    default: true as boolean,
+  },
 } as const;
 
 export const storageKeyFromName = (name: keyof typeof SETTINGS) =>

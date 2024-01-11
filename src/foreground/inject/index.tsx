@@ -13,6 +13,7 @@ import iFixPipelineErrors from "./pipeline-errors/inject-pipeline-errors";
 import iEnhancePullrequestStyling from "./pullrequest-styling/inject-pullrequest-styling";
 import iLogsScrollToBottom from "./logs-scrolltobottom/inject-scrolltobottom";
 import iTimeFormat from "./time-format/inject-time-format";
+import iLinkifyAzureIds from "./linkify-azure-ids/inject-linkify-azure-ids";
 
 // start observing the DOM
 new InjectionObserver([
@@ -23,4 +24,5 @@ new InjectionObserver([
   iEnhancePullrequestStyling,
   iLogsScrollToBottom,
   iTimeFormat,
+  iLinkifyAzureIds,
 ]);

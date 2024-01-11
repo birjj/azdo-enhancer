@@ -1,0 +1,3 @@
+.link:not(:focus-visible, :hover) {
+  text-decoration: none;
+}
