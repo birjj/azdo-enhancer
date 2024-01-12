@@ -40,7 +40,7 @@ function addWrapButton($elm: HTMLElement) {
   const $icon = document.createElement("span");
   $icon.classList.add("fabric-icon", "ms-Icon--ChevronUnfold10");
   $btn.appendChild($icon);
-  $elm.prepend($btn);
+  $elm.append($btn);
 
   // AZDO might swap out the classes when the line loses focus
   // we observe this and manually change it back based on ___isWrapping

@@ -1,6 +1,7 @@
 .expand-btn {
   height: 20px !important;
   padding: 2px !important;
+  top: 0;
   left: 12px;
   position: absolute;
   background: none;
