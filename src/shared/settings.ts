@@ -31,6 +31,11 @@ export const SETTINGS = {
     description: "Add links to Azure resource IDs in pipeline logs",
     default: true as boolean,
   },
+  "wrap-log-lines": {
+    title: "Wrap log lines",
+    description: "Add button to wrap long lines in pipeline logs",
+    default: true as boolean,
+  },
 } as const;
 
 export const storageKeyFromName = (name: keyof typeof SETTINGS) =>

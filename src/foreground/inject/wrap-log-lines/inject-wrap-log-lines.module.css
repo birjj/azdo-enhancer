@@ -1,0 +1,31 @@
+.expand-btn {
+  height: 20px !important;
+  padding: 2px !important;
+  left: 12px;
+  position: absolute;
+  background: none;
+}
+:global(.bolt-fixed-height-list-row):not(:hover) .expand-btn {
+  visibility: hidden;
+}
+
+:global(.bolt-fixed-height-list-row).wrap {
+  width: var(--inner-width, 1320px);
+  overflow: initial;
+  z-index: 1;
+}
+:global(.bolt-fixed-height-list-row).wrap :global(.line-area .content) {
+  word-break: normal;
+}
+:global(.bolt-fixed-height-list-row).wrap :global(.line-area) {
+  background-color: rgba(var(--palette-primary-tint-40), 1);
+  background-color: color-mix(
+    in srgb,
+    rgba(var(--palette-primary-tint-40), 1),
+    black 10%
+  );
+}
+
+:global(.bolt-fixed-height-list-row).wrap:hover :global(.line-area) {
+  background-color: rgba(var(--palette-primary-tint-40), 1);
+}

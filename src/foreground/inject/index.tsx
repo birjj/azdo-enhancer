@@ -14,6 +14,7 @@ import iEnhancePullrequestStyling from "./pullrequest-styling/inject-pullrequest
 import iLogsScrollToBottom from "./logs-scrolltobottom/inject-scrolltobottom";
 import iTimeFormat from "./time-format/inject-time-format";
 import iLinkifyAzureIds from "./linkify-azure-ids/inject-linkify-azure-ids";
+import iWrapLogLines from "./wrap-log-lines/inject-wrap-log-lines";
 
 // start observing the DOM
 new InjectionObserver([
@@ -25,4 +26,5 @@ new InjectionObserver([
   iLogsScrollToBottom,
   iTimeFormat,
   iLinkifyAzureIds,
+  iWrapLogLines,
 ]);
