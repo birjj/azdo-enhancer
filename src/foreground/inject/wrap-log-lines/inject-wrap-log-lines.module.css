@@ -10,22 +10,25 @@
 }
 
 :global(.bolt-fixed-height-list-row).wrap {
-  width: var(--inner-width, 1320px);
+  width: var(--wrap-width, 1320px);
   overflow: initial;
   z-index: 1;
 }
 :global(.bolt-fixed-height-list-row).wrap :global(.line-area .content) {
   word-break: normal;
 }
-:global(.bolt-fixed-height-list-row).wrap :global(.line-area) {
-  background-color: rgba(var(--palette-primary-tint-40), 1);
-  background-color: color-mix(
+:global(.bolt-fixed-height-list-row).wrap :global(.content) {
+  --background-color: rgba(var(--palette-primary-tint-40), 1);
+  --background-color: color-mix(
     in srgb,
     rgba(var(--palette-primary-tint-40), 1),
     black 10%
   );
+  background-color: var(--background-color);
+  outline: 4px solid var(--background-color);
+  box-shadow: 0 2px 8px 4px rgba(0, 0, 0, 0.5);
 }
 
-:global(.bolt-fixed-height-list-row).wrap:hover :global(.line-area) {
-  background-color: rgba(var(--palette-primary-tint-40), 1);
+:global(.bolt-fixed-height-list-row).wrap:hover :global(.content) {
+  --background-color: rgba(var(--palette-primary-tint-40), 1);
 }

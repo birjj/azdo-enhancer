@@ -4,11 +4,21 @@ import { getSettingValue } from "../../../shared/settings";
 
 import style from "./inject-wrap-log-lines.module.css";
 
+type HTMLWrappingElement = HTMLElement & {
+  ___isWrapping?: boolean;
+  ___classWrappingObserver?: MutationObserver;
+};
 const toggleWrap = ($elm: HTMLElement) => {
   const $wrapper = $elm.closest(".log-reader") as HTMLElement | null;
-  const $row = $elm.closest(".bolt-fixed-height-list-row");
-  $row?.classList.toggle(style.wrap);
-  $wrapper?.style.setProperty("--inner-width", `${$wrapper.clientWidth}px`);
+  const $row = $elm.closest(
+    ".bolt-fixed-height-list-row"
+  ) as HTMLWrappingElement | null;
+  const isWrap = !$row?.classList.contains(style.wrap);
+  $row?.classList.toggle(style.wrap, isWrap);
+  if ($row) {
+    $row.___isWrapping = isWrap;
+  }
+  $wrapper?.style.setProperty("--wrap-width", `${$wrapper.clientWidth}px`);
 };
 
 function addWrapButton($elm: HTMLElement) {
@@ -31,6 +41,22 @@ function addWrapButton($elm: HTMLElement) {
   $icon.classList.add("fabric-icon", "ms-Icon--ChevronUnfold10");
   $btn.appendChild($icon);
   $elm.prepend($btn);
+
+  // AZDO might swap out the classes when the line loses focus
+  // we observe this and manually change it back based on ___isWrapping
+  const $row = $elm.closest(
+    ".bolt-fixed-height-list-row"
+  ) as HTMLWrappingElement | null;
+  if ($row && !$row.___classWrappingObserver) {
+    $row.___classWrappingObserver = new MutationObserver(() => {
+      console.log("Observed change, updating", $row);
+      $row.classList.toggle(style.wrap, !!$row.___isWrapping);
+    });
+    $row.___classWrappingObserver.observe($row, {
+      attributeFilter: ["class"],
+      attributes: true,
+    });
+  }
 }
 
 const iWrapLogLines: InjectionConfig = {
