@@ -4,6 +4,12 @@ export const SETTINGS = {
     description: "Adds buttons for scrolling to start/end of long build logs",
     default: true as boolean,
   },
+  "logs-search-phrases": {
+    title: "Search phrases for logs",
+    description:
+      "Add a button to search for configurable phrases in pipeline logs",
+    default: true as boolean,
+  },
   "pipeline-errors": {
     title: "Format build issues",
     description:

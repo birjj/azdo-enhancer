@@ -14,6 +14,7 @@ import iEnhancePullrequestStyling from "./pullrequest-styling/inject-pullrequest
 import iLogsScrollToBottom from "./logs-scrolltobottom/inject-scrolltobottom";
 import iTimeFormat from "./time-format/inject-time-format";
 import iLinkifyAzureIds from "./linkify-azure-ids/inject-linkify-azure-ids";
+import iLogsSearchPhrases from "./logs-search-phrases/inject-search-phrases";
 
 // start observing the DOM
 new InjectionObserver([
@@ -23,6 +24,7 @@ new InjectionObserver([
   iPinSidebar,
   iEnhancePullrequestStyling,
   iLogsScrollToBottom,
+  iLogsSearchPhrases,
   iTimeFormat,
   iLinkifyAzureIds,
 ]);
