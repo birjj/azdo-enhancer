@@ -93,7 +93,9 @@ const SearchPhrasesMenu = () => {
           title={`Search for '${phrase}'`}
           onClick={() => performSearch(phrase)}
         >
-          {phrase}
+          <span style={{ textOverflow: "ellipsis", overflowX: "hidden" }}>
+            {phrase}
+          </span>
           <button
             className={`subtle bolt-button bolt-icon-button enabled icon-only bolt-focus-treatment ${style["entry-btn"]}`}
             title={`Delete phrase '${phrase}'`}
@@ -119,11 +121,11 @@ const SearchPhrasesMenu = () => {
           addPhrase();
         }}
       >
-        <div className="bolt-textfield bolt-textfield-inline">
+        <div className="bolt-textfield bolt-textfield-inline flex flex-grow">
           <input
             type="text"
             placeholder="Add new phrase..."
-            className="bolt-textfield-input"
+            className="bolt-textfield-input flex-grow"
             ref={$inputRef}
           />
           <button

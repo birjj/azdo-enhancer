@@ -7,8 +7,8 @@
   right: 0;
   font-size: 0.875rem;
   border-radius: 4px;
-  max-width: 320px;
   min-width: 195px;
+  max-width: 256px;
 }
 
 .list {
