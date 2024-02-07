@@ -30,6 +30,12 @@ Current features:
 
 </details>
 
+<details><summary><b> Quick-access search phrases for long logs</b></summary>
+
+![Screenshot of quick-access search phrases](./docs/search_phrases.png)
+
+</details>
+
 ## Installation
 
 Make sure Node and NPM are installed. Then:
