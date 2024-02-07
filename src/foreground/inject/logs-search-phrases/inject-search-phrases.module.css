@@ -1,0 +1,38 @@
+.wrapper {
+  position: relative;
+}
+
+.menu {
+  position: absolute;
+  right: 0;
+  font-size: 0.875rem;
+  border-radius: 4px;
+  min-width: 195px;
+  max-width: 256px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  align-content: stretch;
+  padding: 8px 0 6px;
+}
+
+.entry {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 6px 14px;
+  border-radius: 0;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin-bottom: 2px;
+}
+.entry:hover {
+  background-color: var(--palette-black-alpha-4, rgba(0, 0, 0, 0.04));
+}
+
+.entry-btn {
+  margin-left: auto;
+  padding: 4px !important;
+}
