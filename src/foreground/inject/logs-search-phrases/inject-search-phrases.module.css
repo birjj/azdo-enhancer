@@ -12,7 +12,7 @@
 }
 
 .list {
-  display: flex;
+  display: flex !important;
   flex-direction: column;
   align-content: stretch;
   padding: 8px 0 6px;
@@ -33,6 +33,6 @@
 }
 
 .entry-btn {
-  margin-left: auto;
+  margin-left: auto !important;
   padding: 4px !important;
 }
