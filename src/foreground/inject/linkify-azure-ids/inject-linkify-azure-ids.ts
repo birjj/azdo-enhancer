@@ -64,6 +64,7 @@ function linkifyAzureIds($elm: HTMLElement) {
       );
       lastIndex = match.index! + match[0].length;
     }
+    newChildren.push(document.createTextNode(content.substring(lastIndex)));
     if (hasReplaced) {
       $parent?.replaceChildren(...newChildren);
     }
