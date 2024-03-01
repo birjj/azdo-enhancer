@@ -1,0 +1,84 @@
+name: Upload released extension to host
+on:
+  release:
+    types: [published, edited]
+
+jobs:
+  Release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      # setup
+      - uses: actions/checkout@v4
+      - name: Finds existing .crx
+        id: getCrxAssetId
+        uses: cardinalby/js-eval-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ASSETS_URL: ${{ github.event.release.assets_url }}
+          ASSET_NAME: extension.crx
+        with:
+          expression: |
+            (await octokit.request("GET " + env.ASSETS_URL)).data
+              .find(asset => asset.name == env.ASSET_NAME)?.id || ''
+      - name: Finds existing .xpi
+        id: getXpiAssetId
+        uses: cardinalby/js-eval-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ASSETS_URL: ${{ github.event.release.assets_url }}
+          ASSET_NAME: extension.xpi
+        with:
+          expression: |
+            (await octokit.request("GET " + env.ASSETS_URL)).data
+              .find(asset => asset.name == env.ASSET_NAME)?.id || ''
+      - name: Finds existing .xml
+        id: getXmlAssetId
+        uses: cardinalby/js-eval-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ASSETS_URL: ${{ github.event.release.assets_url }}
+          ASSET_NAME: update.xml
+        with:
+          expression: |
+            (await octokit.request("GET " + env.ASSETS_URL)).data
+              .find(asset => asset.name == env.ASSET_NAME)?.id || ''
+      - name: Abort on signing error
+        if: |
+          steps.getCrxAssetId.outputs.result == '' ||
+          steps.getXpiAssetId.outputs.result == '' ||
+          steps.getXmlAssetId.outputs.result == ''
+        run: exit 1
+      - name: Download .crx from release
+        uses: cardinalby/download-release-asset-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          assetId: ${{ steps.getCrxAssetId.outputs.result }}
+          targetPath: hosted/extension.crx
+      - name: Download .xpi from release
+        uses: cardinalby/download-release-asset-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          assetId: ${{ steps.getXpiAssetId.outputs.result }}
+          targetPath: hosted/extension.xpi
+      - name: Download .xml from release
+        uses: cardinalby/download-release-asset-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          assetId: ${{ steps.getXmlAssetId.outputs.result }}
+          targetPath: hosted/update.xml
+      # publish to netlify
+      - run: cp ./index.html ./hosted/index.html
+      - name: Publish to Netlify
+        uses: nwtgck/actions-netlify@v2.1.0
+        with:
+          publish-dir: ./hosted
+          production-branch: master
+          production-deploy: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: 'Release from GitHub Actions'
+          netlify-config-path: ./netlify.toml
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_ACCESS_TOKEN }}
+          NETLIFY_SITE_ID: ${{ vars.NETLIFY_SITE_ID }}

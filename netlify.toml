@@ -1,0 +1,4 @@
+[[headers]]
+  for = "/*.crx"
+  [headers.values]
+    Content-Type = "application/x-chrome-extension"
