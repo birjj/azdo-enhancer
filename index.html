@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>AZDO Enhancer Extension</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        :root {
+            --c-background-0: 255 255 255;
+            --c-background-1: 248 248 248;
+            --c-foreground-0: 0 0 0;
+            --c-accent-0: 0 120 212;
+            --c-accent-1: 0 103 181;
+            --c-accent-2: 0 91 161;
+            --shadow-medium: 0 3.2px 7.2px 0 var(--shadow-color, rgba(0, 0, 0, .132)), .6px 1.8px 0 var(--shadow-color-1, rgba(0, 0, 0, .108));
+            --font-sans: "Segoe UI VSS (Regular)", "Segoe UI", "-apple-system", BlinkMacSystemFont, Roboto, "Helvetica Neue", Helvetica, Ubuntu, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgb(var(--c-background-1));
+            color: rgb(var(--c-foreground-0));
+            font-family: var(--font-sans);
+        }
+
+        .wrapper {
+            width: fit-content;
+        }
+
+        h1 {
+            margin: 0 0 0.5rem;
+            padding: 0 0.25rem;
+            font-size: 1.3125rem;
+            font-weight: 600;
+            letter-spacing: -.02em;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        h2 {
+            margin: 0 0 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        p {
+            font-size: 0.875rem;
+            margin-block: 0.35rem 0;
+            color: rgb(var(--c-foreground-0) / 80%);
+        }
+
+        a {
+            color: rgb(var(--c-accent-2));
+            cursor: pointer;
+            text-decoration: none;
+            border-radius: 2px;
+        }
+
+        a:hover {
+            background: rgb(var(--c-foreground-0) / 6%);
+        }
+
+        .card {
+            background: rgb(var(--c-background-0));
+            box-shadow: var(--shadow-medium);
+            border-radius: 4px;
+            padding: 0.5rem 0.75rem 1rem;
+            max-width: 46rem;
+        }
+
+        .button {
+            display: inline-flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            padding: 6px 12px;
+            color: rgb(var(--c-background-0));
+            font-weight: 600;
+            white-space: nowrap;
+            background: rgb(var(--c-accent-0));
+            text-decoration: none;
+            border-radius: 2px;
+            transition: background 80ms linear;
+        }
+
+        .button:hover,
+        .button:focus-visible {
+            background: rgb(var(--c-accent-1));
+        }
+
+        .button:active {
+            background: rgb(var(--c-accent-1));
+        }
+
+        .button-row {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: center;
+            margin-top: 0.75rem;
+        }
+
+        .button-row>.button+.button {
+            margin-left: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <h1>
+            <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="1em" height="1em"
+                viewBox="0.093 0.027 25 24.956" style="margin-inline-end: 0.5ch;">
+                <g>
+                    <path
+                        d="M0 8.877 2.247 5.91l8.405-3.416V.022l7.37 5.393L2.966 8.338v8.225L0 15.707zm24-4.45v14.651l-5.753 4.9-9.303-3.057v3.056l-5.978-7.416 15.057 1.798V5.415z"
+                        transform="translate(.593 .505)" vector-effect="non-scaling-stroke"
+                        style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(0, 120, 215); fill-rule: nonzero; opacity: 1;">
+                    </path>
+                    <path
+                        d="M-3.486 2.67V.891l-1.817.014V-.402l1.817-.106v-1.686l1.313-.149v1.76l1.816-.1v1.55l-1.816.016v1.849zm5.659.272V.846L.356.866V-.737l1.817-.101v-2.015l1.313-.153v2.1l1.817-.1V.815L3.486.83v2.176z"
+                        transform="translate(10.896 12.703)" vector-effect="non-scaling-stroke"
+                        style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(0, 0, 0); fill-rule: nonzero; opacity: 1;">
+                    </path>
+                </g>
+            </svg>
+            AZDO Enhancer
+        </h1>
+        <div class="card">
+            <h2>A WebExtension to fix up Azure DevOps so it sucks a little less.</h2>
+            <p>This extension is a small attempt at overcoming many of the frustrations encountered when working
+                with
+                Azure DevOps. It's clear that Microsoft have no interest in improving it, so we have to do it
+                ourselves.
+            </p>
+            <p>For a list of features implemented in the extension, see <a
+                    href="https://github.com/birjj/azdo-enhancer?tab=readme-ov-file#readme" target="_blank">the
+                    project
+                    README</a>.</a></p>
+            <div class="button-row">
+                <a href="/extension.crx" class="button">
+                    <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" xml:space="preserve"
+                        width="1em" height="1em" style="margin-inline-end: 0.5ch;">
+                        <path fill="currentColor"
+                            d="M12 0C8.21 0 4.831 1.757 2.632 4.501l3.953 6.848A5.454 5.454 0 0 1 12 6.545h10.691A12 12 0 0 0 12 0zM1.931 5.47A11.943 11.943 0 0 0 0 12c0 6.012 4.42 10.991 10.189 11.864l3.953-6.847a5.45 5.45 0 0 1-6.865-2.29zm13.342 2.166a5.446 5.446 0 0 1 1.45 7.09l.002.001h-.002l-5.344 9.257c.206.01.413.016.621.016 6.627 0 12-5.373 12-12 0-1.54-.29-3.011-.818-4.364zM12 16.364a4.364 4.364 0 1 1 0-8.728 4.364 4.364 0 0 1 0 8.728Z" />
+                    </svg> <span>Download for Chrome</span>
+                </a>
+                <a href="/extension.xpi" class="button">
+                    <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                        style="margin-inline-end: 0.5ch;">
+                        <path fill="currentColor"
+                            d="M8.824 7.287c.008 0 .004 0 0 0zm-2.8-1.4c.006 0 .003 0 0 0zm16.754 2.161c-.505-1.215-1.53-2.528-2.333-2.943.654 1.283 1.033 2.57 1.177 3.53l.002.02c-1.314-3.278-3.544-4.6-5.366-7.477-.091-.147-.184-.292-.273-.446a3.545 3.545 0 01-.13-.24 2.118 2.118 0 01-.172-.46.03.03 0 00-.027-.03.038.038 0 00-.021 0l-.006.001a.037.037 0 00-.01.005L15.624 0c-2.585 1.515-3.657 4.168-3.932 5.856a6.197 6.197 0 00-2.305.587.297.297 0 00-.147.37c.057.162.24.24.396.17a5.622 5.622 0 012.008-.523l.067-.005a5.847 5.847 0 011.957.222l.095.03a5.816 5.816 0 01.616.228c.08.036.16.073.238.112l.107.055a5.835 5.835 0 01.368.211 5.953 5.953 0 012.034 2.104c-.62-.437-1.733-.868-2.803-.681 4.183 2.09 3.06 9.292-2.737 9.02a5.164 5.164 0 01-1.513-.292 4.42 4.42 0 01-.538-.232c-1.42-.735-2.593-2.121-2.74-3.806 0 0 .537-2 3.845-2 .357 0 1.38-.998 1.398-1.287-.005-.095-2.029-.9-2.817-1.677-.422-.416-.622-.616-.8-.767a3.47 3.47 0 00-.301-.227 5.388 5.388 0 01-.032-2.842c-1.195.544-2.124 1.403-2.8 2.163h-.006c-.46-.584-.428-2.51-.402-2.913-.006-.025-.343.176-.389.206-.406.29-.787.616-1.136.974-.397.403-.76.839-1.085 1.303a9.816 9.816 0 00-1.562 3.52c-.003.013-.11.487-.19 1.073-.013.09-.026.181-.037.272a7.8 7.8 0 00-.069.667l-.002.034-.023.387-.001.06C.386 18.795 5.593 24 12.016 24c5.752 0 10.527-4.176 11.463-9.661.02-.149.035-.298.052-.448.232-1.994-.025-4.09-.753-5.844z" />
+                    </svg> <span>Download for Firefox</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

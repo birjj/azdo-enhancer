@@ -20,5 +20,10 @@
       "run_at": "document_start"
     }
   ],
-  "options_page": "src/settings/index.html"
+  "options_page": "src/settings/index.html",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "azdo-enhancer@jfagerberg.me"
+    }
+  }
 }
