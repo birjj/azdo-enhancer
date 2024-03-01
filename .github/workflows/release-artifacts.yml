@@ -85,6 +85,8 @@ jobs:
           zipFilePath: hosted/extension.zip
           crxFilePath: hosted/extension.crx
           privateKey: ${{ secrets.CHROME_CRX_PRIVATE_KEY }}
+          updateXmlPath: hosted/update.xml
+          updateXmlCodebaseUrl: https://${{ vars.HOST_DOMAIN }}/extension.crx
       - name: Upload .crx
         uses: actions/upload-release-asset@v1
         env:
@@ -94,6 +96,15 @@ jobs:
           asset_path: hosted/extension.crx
           asset_name: extension.crx
           asset_content_type: application/x-chrome-extension
+      - name: Upload .xml
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: hosted/update.xml
+          asset_name: update.xml
+          asset_content_type: application/xml
   # and build a .xpi from it
   build-signed-xpi-asset:
     needs: ensure-zip

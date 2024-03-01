@@ -33,10 +33,22 @@ jobs:
           expression: |
             (await octokit.request("GET " + env.ASSETS_URL)).data
               .find(asset => asset.name == env.ASSET_NAME)?.id || ''
+      - name: Finds existing .xml
+        id: getXmlAssetId
+        uses: cardinalby/js-eval-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ASSETS_URL: ${{ github.event.release.assets_url }}
+          ASSET_NAME: update.xml
+        with:
+          expression: |
+            (await octokit.request("GET " + env.ASSETS_URL)).data
+              .find(asset => asset.name == env.ASSET_NAME)?.id || ''
       - name: Abort on signing error
         if: |
           steps.getCrxAssetId.outputs.result == '' ||
-          steps.getXpiAssetId.outputs.result == ''
+          steps.getXpiAssetId.outputs.result == '' ||
+          steps.getXmlAssetId.outputs.result == ''
         run: exit 1
       - name: Download .crx from release
         uses: cardinalby/download-release-asset-action@v1
@@ -50,6 +62,12 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           assetId: ${{ steps.getXpiAssetId.outputs.result }}
           targetPath: hosted/extension.xpi
+      - name: Download .xml from release
+        uses: cardinalby/download-release-asset-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          assetId: ${{ steps.getXmlAssetId.outputs.result }}
+          targetPath: hosted/update.xml
       # publish to netlify
       - run: cp ./index.html ./hosted/index.html
       - name: Publish to Netlify
