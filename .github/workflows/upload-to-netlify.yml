@@ -49,7 +49,7 @@ jobs:
   upload-to-netlify:
     needs: read-asset-ids
     if: |
-      ${{ needs.read-asset-ids.outputs.crxAssetId && needs.read-asset-ids.outputs.xpiAssetId && needs.read-asset-ids.outputs.updateXmlAssetId }}
+      ${{ needs.read-asset-ids.outputs.crxAssetId != '' && needs.read-asset-ids.outputs.xpiAssetId != '' && needs.read-asset-ids.outputs.updateXmlAssetId != '' }}
     runs-on: ubuntu-latest
     permissions:
       contents: write
