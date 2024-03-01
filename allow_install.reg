@@ -6,7 +6,7 @@ Windows Registry Editor Version 5.00
 "1"="https://azdo-enhancer.netlify.app/*"
 
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome\ExtensionInstallWhitelist]
-"1"="emcodccgmbcamnibjalgcjdnhafebenj"
+"1"="jjgjckpnemcmplpmoeecpkaeaapecfom"
 
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome\ExtensionInstallAllowlist]
-"1"="emcodccgmbcamnibjalgcjdnhafebenj"
+"1"="jjgjckpnemcmplpmoeecpkaeaapecfom"
