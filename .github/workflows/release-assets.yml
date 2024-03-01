@@ -3,9 +3,6 @@ on:
   release:
     types: [published]
 
-env:
-  HOST_DOMAIN: example.com
-
 # builds the relevant .xpi and .crx files, gets them signed and adds them to the given release
 # see https://cardinalby.github.io/blog/post/github-actions/webext/4-build-release-assets/
 jobs:

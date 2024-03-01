@@ -42,7 +42,7 @@ jobs:
           expression: |
             (await octokit.request("GET " + env.ASSETS_URL)).data
               .find(asset => asset.name == env.ASSET_NAME)?.id || ''
-      - name: Abort on signing error
+      - name: Abort if assets can't be found
         if: |
           steps.getCrxAssetId.outputs.result == '' ||
           steps.getXpiAssetId.outputs.result == '' ||
