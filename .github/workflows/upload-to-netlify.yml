@@ -11,8 +11,6 @@ jobs:
       xpiAssetId: ${{ steps.getXpiAssetId.outputs.result }}
       updateXmlAssetId: ${{ steps.getXmlAssetId.outputs.result }}
     steps:
-      # setup
-      - uses: actions/checkout@v4
       - name: Finds existing .crx
         id: getCrxAssetId
         uses: cardinalby/js-eval-action@v1
@@ -54,6 +52,7 @@ jobs:
     permissions:
       contents: write
     steps:
+      - uses: actions/checkout@v4
       - name: Download .crx from release
         uses: cardinalby/download-release-asset-action@v1
         with:
