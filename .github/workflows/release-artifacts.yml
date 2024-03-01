@@ -11,6 +11,8 @@ env:
 jobs:
   # first make sure we have a valid .zip on the release
   ensure-zip:
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
     outputs:
       zipAssetId: |
@@ -71,6 +73,8 @@ jobs:
   build-signed-crx-asset:
     needs: ensure-zip
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
       - name: Download ZIP from release
@@ -109,6 +113,8 @@ jobs:
   build-signed-xpi-asset:
     needs: ensure-zip
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
       - name: Download ZIP from release
