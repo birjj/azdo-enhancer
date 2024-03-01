@@ -4,8 +4,12 @@ on:
     types: [published, edited]
 
 jobs:
-  Release:
+  read-asset-ids:
     runs-on: ubuntu-latest
+    outputs:
+      crxAssetId: ${{ steps.getCrxAssetId.outputs.result }}
+      xpiAssetId: ${{ steps.getXpiAssetId.outputs.result }}
+      updateXmlAssetId: ${{ steps.getXmlAssetId.outputs.result }}
     steps:
       # setup
       - uses: actions/checkout@v4
@@ -42,29 +46,31 @@ jobs:
           expression: |
             (await octokit.request("GET " + env.ASSETS_URL)).data
               .find(asset => asset.name == env.ASSET_NAME)?.id || ''
-      - name: Abort if assets can't be found
-        if: |
-          steps.getCrxAssetId.outputs.result == '' ||
-          steps.getXpiAssetId.outputs.result == '' ||
-          steps.getXmlAssetId.outputs.result == ''
-        run: exit 1
+  upload-to-netlify:
+    needs: read-asset-ids
+    if: |
+      ${{ needs.read-asset-ids.outputs.crxAssetId && needs.read-asset-ids.outputs.xpiAssetId && needs.read-asset-ids.outputs.updateXmlAssetId }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
       - name: Download .crx from release
         uses: cardinalby/download-release-asset-action@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          assetId: ${{ steps.getCrxAssetId.outputs.result }}
+          assetId: ${{ needs.read-asset-ids.outputs.crxAssetId }}
           targetPath: hosted/extension.crx
       - name: Download .xpi from release
         uses: cardinalby/download-release-asset-action@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          assetId: ${{ steps.getXpiAssetId.outputs.result }}
+          assetId: ${{ needs.read-asset-ids.outputs.xpiAssetId }}
           targetPath: hosted/extension.xpi
       - name: Download .xml from release
         uses: cardinalby/download-release-asset-action@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          assetId: ${{ steps.getXmlAssetId.outputs.result }}
+          assetId: ${{ needs.read-asset-ids.outputs.updateXmlAssetId }}
           targetPath: hosted/update.xml
       # publish to netlify
       - run: cp ./index.html ./hosted/index.html
